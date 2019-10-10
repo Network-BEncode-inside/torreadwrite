@@ -1,0 +1,98 @@
+.TH torreadwrite "1" "09 Jul 2015" "0.20150709" "User Manual"
+.PP
+torreadwrite
+.PP
+VL-LUG
+.PP
+XMPP: <xmpp:linuxdv@conference.jabber.ru>
+.PP
+URL:  http://www.linuxdv.org/wiki/projects/torrents_editor
+.PP
+SRC:  http://linuxdv.ru/forum/download/file.php?id=28
+.PP
+
+.SH SAMPLE
+
+$
+.B torread
+samplefile.torrent > samplefile.torrent.txt
+.PP
+$
+.B nano
+samplefile.torrent.txt
+.PP
+$
+.B torwrite
+samplefile.torrent.txt > samplefile.mod.torrent
+.PP
+
+.SH STRUCTURE
+
+Content torrent file
+.PP
+Content torrent file is encoded as described above. Himself torrent file is bencoded dictionary with the following keys:
+.PP
+.B info:
+a dictionary describing the files in the torrent. There are two forms of the dictionary, the first to the torrent that contains only one file, and the second - for multi file torrent.
+.PP
+.B announce:
+string with a URL of the tracker.
+.PP
+.B announce-list:
+(optional) list of lists, each of which contains a string with a URL of the tracker.
+.PP
+.B creation date:
+(optional) integer - the creation of a torrent in seconds era UNIX (number of seconds since 00:00:00 01/01/1970).
+.PP
+.B comment:
+(optional) string with an arbitrary comment.
+.PP
+.B created by:
+(optional) string with the name and version of the created torrent file program.
+.PP
+.B encoding:
+(optional) any string of unknown purpose.
+.PP
+In beztrekernom torrent announce and no announce-list, but instead there is an element nodes, which is a list of lists, each of which contains a line with the address and the number of nodes - the port number. Something like nodes = [[«<host>», <port>], [«<host>», <port>], \.\.\.]. The simplest option - nodes = [[«127.0.0.1», 6881]].
+.PP
+Dictionary info
+.PP
+The parameters are the same for single-file and multi-file torrents.
+.PP
+.B piece length:
+number of bytes in a piece, usually a power of two.
+.PP
+.B pieces:
+a string of united 20-byte SHA1 hash pieces.
+.PP
+.B private:
+(optional) number. If it is one, the customer to search for peers to be used only tracker (s) specified in the torrent file. If this number is zero, the customer can add peers any methods: manually, or via DHT and Peer Exchange t. D.
+.PP
+For single file torrents:
+.PP
+.B name:
+string filename.
+.PP
+.B length:
+the number of bytes in the file.
+.PP
+.B md5sum:
+(optional) string MD5 sums file. Fucking useless.
+.PP
+For multi file torrent:
+.PP
+.B name:
+string with the name of the directory where all files will be placed.
+.PP
+.B files:
+a list of dictionaries, one for each file. Each dictionary contains the following keys:
+.PP
+.B length:
+the number of bytes in the file.
+.PP
+.B md5sum:
+(optional) string MD5 sums file. Fuck no one needs, as in the previous case.
+.PP
+.B path:
+a list of one or more lines, representing together a file path. The last line - the name of the file, the previous - the sequence of nested directories. For example, the path «dir1 / dir2 / file.ext» will be presented in a list of three lines: «dir1», «dir2», «file.ext».
+.PP

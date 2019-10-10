@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" dir="ltr" g_init="6914" lang="ru"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Редактирование торрент-файлов - Linux во Владивостоке</title>
+<meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2014-07-07T17:21:40+1100">
+<meta name="keywords" content="projects,torrents editor">
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.linuxdv.org/wiki/lib/exe/opensearch.php" title="Linux во Владивостоке">
+<link rel="start" href="http://www.linuxdv.org/wiki/">
+<link rel="contents" href="http://www.linuxdv.org/wiki/projects/torrents_editor?do=index" title="Все страницы">
+<link rel="alternate" type="application/rss+xml" title="Недавние изменения" href="http://www.linuxdv.org/wiki/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Текущее пространство имён" href="http://www.linuxdv.org/wiki/feed.php?mode=list&amp;ns=projects">
+<link rel="alternate" type="text/html" title="Простой HTML" href="http://www.linuxdv.org/wiki/_export/xhtml/projects/torrents_editor">
+<link rel="alternate" type="text/plain" title="вики-разметка" href="http://www.linuxdv.org/wiki/_export/raw/projects/torrents_editor">
+<link rel="canonical" href="file:///home/mykaralw/Downloads/html/torreadwrite-wiki_www.linuxdv.org_files/torreadwrite-wiki_www.linuxdv.org.html">
+<link rel="stylesheet" type="text/css" href="index_files/css.php.css">
+<style type="text/css" media="screen"><!--
+/* Effective stylesheet produced by snapshot save */
+--></style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="shortcut icon" href="index_files/favicon_ico">
+<link rel="apple-touch-icon" href="urn:not-loaded:http://www.linuxdv.org/wiki/lib/tpl/monobook/static/3rd/dokuwiki/apple-touch-icon.png">
+</head>
+<body class="mediawiki ns-0 ltr">
+<div id="globalWrapper">
+<div id="column-content">
+<div id="content">
+      <a name="top" id="top"></a>
+      <a name="dokuwiki__top" id="dokuwiki__top"></a>
+<div id="bodyContent">
+<div class="dokuwiki">
+<div id="dw__toc">
+<h3 class="toggle open" style="cursor: pointer;"><strong><span>−</span></strong>Содержание
+</h3>
+<div>
+<ul class="toc" aria-expanded="true">
+<li class="level1">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D1%82%D0%BE%D1%80%D1%80%D0%B5%D0%BD%D1%82-%D1%84%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2">Редактирование торрент-файлов</a></div>
+<ul class="toc">
+<li class="level2">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D1%81%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B8%D0%BC%D0%BE%D0%B5_%D1%82%D0%BE%D1%80%D1%80%D0%B5%D0%BD%D1%82-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0">Содержимое торрент-файла</a></div>
+<ul class="toc">
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D1%81%D0%BB%D0%BE%D0%B2%D0%B0%D1%80%D1%8C_info">Словарь info</a></div></li>
+</ul>
+</li>
+<li class="level2">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D1%87%D1%82%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B8_%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D1%81%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B8%D0%BC%D0%BE%D0%B3%D0%BE">Чтение и редактирование содержимого</a></div>
+<ul class="toc">
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#torread">torread</a></div></li>
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#torwrite">torwrite</a></div></li>
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D0%B7%D0%B0%D1%87%D0%B5%D0%BC_%D0%BE%D0%BD%D0%BE_%D0%BD%D0%B0%D0%B4%D0%BE">Зачем оно надо?</a></div></li>
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D0%BF%D0%B5%D1%80%D1%81%D0%BF%D0%B5%D0%BA%D1%82%D0%B8%D0%B2%D1%8B">Перспективы</a></div></li>
+<li class="level3">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5">Дополнение</a></div></li>
+</ul>
+</li>
+<li class="level2">
+<div class="li"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor#%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8">Ссылки</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<h1 class="sectionedit1" id="редактирование_торрент-файлов">Редактирование торрент-файлов
+</h1>
+<div class="level1">
+<p>
+Формат торрент-файла можно посмотреть <a href="https://ru.wikipedia.org/wiki/Bencode" class="urlextern" title="https://ru.wikipedia.org/wiki/Bencode" rel="nofollow">здесь</a>
+</p>
+</div>
+<h2 class="sectionedit2" id="содержимое_торрент-файла">Содержимое торрент-файла
+</h2>
+<div class="level2">
+<p>
+Содержимое торрент-файла кодируется указанным выше образом.
+Сам торрент-файл представляет собой bencoded словарь со следующими ключами:
+</p>
+<ul>
+<li class="level1">
+<div class="li"> <strong>info</strong>: словарь, описывающий файлы в торренте. Возможно две формы этого словаря, первая для торрента, содержащего только один файл, и вторая — для многофайлового торрента.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>announce</strong>: строка с <abbr title="Uniform Resource Locator">URL</abbr>'ом трекера.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>announce-list</strong>: (опционально) список списков, каждый из которых содержит строку с <abbr title="Uniform Resource Locator">URL</abbr>'ом трекера.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>creation date</strong>: (опционально) целое число — время создания торрента в секундах эпохи UNIX (количество секунд с 00:00:00 01.01.1970).</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>comment</strong>: (опционально) строка с произвольным комментарием.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>created by</strong>: (опционально) строка с названием и версией создавшей торрент-файл программы.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>encoding</strong>: (опционально) какая-то строка с непонятным назначением.</div>
+</li>
+</ul>
+<p>
+В безтрекерном торренте отсутствуют <strong>announce</strong> и <strong>announce-list</strong>, но вместо этого есть элемент <strong>nodes</strong>, представляющий собой список списков, каждый из которых содержит строку с адресом ноды и число — номер порта. Что-то вроде nodes = [ [«&lt;host&gt;», &lt;port&gt;], [«&lt;host&gt;», &lt;port&gt;], …]. Простейший вариант — nodes = [ [«127.0.0.1», 6881] ].
+</p>
+</div>
+<h3 class="sectionedit3" id="словарь_info">Словарь info
+</h3>
+<div class="level3">
+<p>
+Параметры, одинаковые для однофайловых и многофайловых торрентов.
+</p>
+<ul>
+<li class="level1">
+<div class="li"> <strong>piece length</strong>: число байтов в куске, обычно степень двойки.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>pieces</strong>: строка из объединённых 20-байтных SHA1 хэшей кусков.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>private</strong>: (опционально) число. Если оно равно единице, клиент для поиска пиров должен использовать ТОЛЬКО трекер(ы), указанные в торрент-файле. Если это число равно нулю, клиент может добавлять пиры любыми методами: вручную, через DHT или Peer Exchange и т. д.</div>
+</li>
+</ul>
+<p>
+Для однофайлового торрента:
+</p>
+<ul>
+<li class="level1">
+<div class="li"> <strong>name</strong>: строка с именем файла.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>length</strong>: число байт в файле.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>md5sum</strong>: (опционально) строка MD5 суммы файла. Нахрен никому не нужна.</div>
+</li>
+</ul>
+<p>
+Для многофайлового торрента:
+</p>
+<ul>
+<li class="level1">
+<div class="li"> <strong>name</strong>: строка с именем директории, куда будут помещаться все файлы.</div>
+</li>
+<li class="level1">
+<div class="li"> <strong>files</strong>: список словарей, по одному для каждого файла. Каждый словарь содержит следующие ключи:</div>
+<ul>
+<li class="level2">
+<div class="li"> <strong>length</strong>: число байт в файле.</div>
+</li>
+<li class="level2">
+<div class="li"> <strong>md5sum</strong>: (опционально) строка MD5 суммы файла. Нахрен никому не нужна, как и в предыдущем случае.</div>
+</li>
+<li class="level2">
+<div class="li"> <strong>path</strong>: список из одной или более строк, представляющих вместе путь к файлу. Последняя строка — имя файла, предыдущие — последовательность вложенных директорий. Например, путь «dir1/dir2/file.ext» будет представлен в виде списка из трёх строк: «dir1», «dir2», «file.ext».</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 class="sectionedit4" id="чтение_и_редактирование_содержимого">Чтение и редактирование содержимого
+</h2>
+<div class="level2">
+<p>
+Ничего путного для просмотра и редактирования содержимого в инете я не нашёл. Соответственно, пришлось написать самому.
+Итак, две программы: torread и torwrite. Они <a href="http://www.linuxdv.org/wiki/_media/projects/tor_rw.tar.gz" class="media mediafile mf_gz" title="projects:tor_rw.tar.gz (1.9 KB)">тут</a>.
+</p>
+</div>
+<h3 class="sectionedit5" id="torread">torread
+</h3>
+<div class="level3">
+<p>
+torread торрент-файл &gt; текстовый_файл
+</p>
+<p>
+Преобразует торрент-файл к человекочитаемому виду. Словари ограничиваются круглыми скобками (), списки — квадратными [], строки — кавычками «», числа — ничем не ограничиваются. Содержимое словарей пишется в виде пар «ключ» = значение. Внутри строк символы с кодами
+&lt;32 и &gt;=127 представляются в шестнадцатиричном виде <code>\x&lt;hex&gt;</code>, кавычки экранируются слэшем \«. Пример конвертированного торрента <a href="http://thepiratebay.org/torrent/4947113/Ubuntu" class="urlextern" title="http://thepiratebay.org/torrent/4947113/Ubuntu" rel="nofollow">отсюда</a>:
+</p>
+<pre class="code">(
+ "announce" = "http://tracker.thepiratebay.org/announce"
+ "announce-list" = [
+  [
+   "http://tracker.thepiratebay.org/announce"
+  ]
+  [
+   "udp://tracker.thepiratebay.org:80/announce"
+  ]
+  [
+   "http://tracker.openbittorrent.com/announce"
+  ]
+  [
+   "udp://tracker.openbittorrent.com:80/announce"
+  ]
+ ]
+ "creation date" = 1244713348
+ "info" = (
+  "files" = [
+   (
+    "length" = 32
+    "path" = [
+     "read.txt"
+    ]
+   )
+   (
+    "length" = 732909568
+    "path" = [
+     "ubuntu-9.04-desktop-i386.iso"
+    ]
+   )
+  ]
+  "name" = "Ubuntu"
+  "piece length" = 524288
+  "pieces" = &lt;скипнуто, ибо зело велико&gt;
+ )
+)</pre>
+</div>
+<h3 class="sectionedit6" id="torwrite">torwrite
+</h3>
+<div class="level3">
+<p>
+torwrite текстовый_файл &gt; торрент-файл
+</p>
+<p>
+Совершает обратную операцию: преобразует текстовый файл в торрент. Понимает в строках помимо <code>\x&lt;hex&gt;</code>, также <code>\n</code>, <code>\a</code>, <code>\b</code>, <code>\e</code>, <code>\f</code>, <code>\r</code>, <code>\t</code>, <code>\v</code>, чтобы это не значило.
+</p>
+</div>
+<h3 class="sectionedit7" id="зачем_оно_надо">Зачем оно надо?
+</h3>
+<div class="level3">
+<p>
+Я использую это следующим образом.
+</p>
+<ul>
+<li class="level1">
+<div class="li"> Скачиваем торрент.</div>
+</li>
+<li class="level1">
+<div class="li"> Лёгким движением руки убираем <strong>announce</strong> и <strong>announce-list</strong>, вставляем <strong>nodes</strong>.</div>
+</li>
+<li class="level1">
+<div class="li"> …</div>
+</li>
+<li class="level1">
+<div class="li"> ПРОФИТ</div>
+</li>
+</ul>
+<p>
+Кто понял, тот молодец.
+</p>
+</div>
+<h3 class="sectionedit8" id="перспективы">Перспективы
+</h3>
+<div class="level3">
+<p>
+К сожалению, редактировать содержимое <strong>info</strong> нельзя, так как для идентификации торрента при взаимодействии с трекером и пирами используется хэш этого словаря. Однако, теоретически, можно ввести в торрент параметр типа <strong>info_hash</strong> и пропатчить клиента, чтобы в качестве идентификатора использовался этот параметр, а не истинный хэш. Это позволило бы менять имена файлов и убирать флаг <strong>private</strong>.
+Полезность второго, впрочем, сомнительна, более эффективно пропатчить клиента на предмет игнорирования этого флага.
+</p>
+</div>
+<h3 class="sectionedit9" id="дополнение">Дополнение
+</h3>
+<div class="level3">
+<p>
+Первоначальный проект получил продолжение: я написал <a href="http://www.linuxdv.org/git/?p=torrent2json.git;a=summary" class="wikilink1" title="/git/?p=torrent2json.git;a=summary">конвертер</a> «bencode ⇔ json», ибо нефиг форматы плодить, а michael_ul - утилитку <a href="http://www.linuxdv.org/git/?p=magnetize.git;a=summary" class="wikilink1" title="/git/?p=magnetize.git;a=summary">magnetize</a>.
+</p>
+</div>
+<h2 class="sectionedit10" id="ссылки">Ссылки
+</h2>
+<div class="level2">
+<ul>
+<li class="level1">
+<div class="li"> <a href="http://linuxdv.org/forum/viewtopic.php?f=4&amp;t=1514" class="urlextern" title="http://linuxdv.org/forum/viewtopic.php?f=4&amp;t=1514" rel="nofollow">Обсуждение на форуме</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://wiki.theory.org/BitTorrentSpecification" class="urlextern" title="http://wiki.theory.org/BitTorrentSpecification" rel="nofollow">Описание формата торрент-файла и протокола</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="https://ru.wikipedia.org/wiki/DHT" class="urlextern" title="https://ru.wikipedia.org/wiki/DHT" rel="nofollow">Описание DHT</a></div>
+</li>
+</ul>
+</div>
+          <br>
+<div class="visualClear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div id="column-one" class="noprint">
+<div class="portlet" id="p-logo">
+      <a href="http://www.linuxdv.org/wiki/index" style="background-image:url(urn:download-error:file:///wiki/lib/tpl/monobook/user/logo.png);" accesskey="h" title="[ALT+H]"></a>
+    </div>
+<div id="p-cactions" class="portlet">
+      <ul>
+<li id="ca-nstab-main"><span class="selected"><span class="curid"><a href="file:///home/mykaralw/Downloads/html/torreadwrite-wiki_www.linuxdv.org_files/torreadwrite-wiki_www.linuxdv.org.html" class="wikilink1" title="projects:torrents_editor">Статья</a></span></span></li>
+<li id="ca-talk"><a href="http://www.linuxdv.org/wiki/talk/projects/torrents_editor" class="wikilink2" title="talk:projects:torrents_editor" rel="nofollow">Дискуссия</a></li>
+<li id="ca-edit"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor?do=edit&amp;rev=1404714100" accesskey="E" title="[ALT+E]">Показать исходный текст</a></li>
+<li id="ca-history"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor?do=revisions" accesskey="O" title="[ALT+O]">История страницы</a></li>
+<li id="tab-export-odt"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor?do=export_odt" rel="nofollow">Экспорт: ODT</a></li>
+      </ul>
+    </div>
+<div id="p-personal" class="portlet">
+<div class="pBody">
+        <ul>
+<li id="pt-login"><a href="http://www.linuxdv.org/wiki/projects/torrents_editor?do=login" rel="nofollow">Войти</a></li>
+        </ul>
+      </div>
+    </div>
+<div class="portlet" id="p-x-navigation">
+<h5>Навигация
+</h5>
+<div class="pBody">
+<div class="dokuwiki">
+<ul>
+<li class="level1">
+<div class="li"> <span class="curid"><a href="http://www.linuxdv.org/wiki/index" class="wikilink1" title="index">Главная</a></span></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/wiki/articles/index" class="wikilink1" title="articles:index">Статьи</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/wiki/projects/index" class="wikilink1" title="projects:index">Проекты</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/wiki/events/index" class="wikilink1" title="events:index">События</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/wiki/services" class="wikilink1" title="services">Сервисы</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/wiki/links" class="wikilink1" title="links">Ссылки</a></div>
+</li>
+<li class="level1">
+<div class="li"> <a href="http://www.linuxdv.org/forum/" class="wikilink1" title="/forum/">Форум</a></div>
+</li>
+</ul>
+        </div>
+      </div>
+    </div>
+<div class="portlet" id="p-search">
+<h5>
+<label for="qsearch__in">Поиск</label>
+</h5>
+<div class="pBody">
+<div class="dokuwiki">
+<form action="http://www.linuxdv.org/wiki/index" accept-charset="utf-8" id="dw__search" name="dw__search">
+  <input name="do" value="search" type="hidden">
+  <input id="qsearch__in" name="id" accesskey="f" type="text">
+  <input class="searchButton" id="searchGoButton" value="Перейти" onclick="" type="button"> 
+  <input name="fulltext" class="searchButton" value="Поиск" type="submit">
+</form>
+        </div>
+      </div>
+    </div>
+<div id="qsearch__out" class="ajax_qsearch JSpopup"></div>
+  </div>
+<div class="visualClear"></div>
+<div id="footer" class="noprint">
+<div id="footer-buttons">
+      <a href="http://www.linuxdv.org/wiki/feed.php" rel="nofollow" title="Последние изменения" target="_blank"><img src="index_files/button-rss.png" title="Последние изменения" alt="Последние изменения" height="15" border="0" width="80"></a>
+      <a href="https://www.dokuwiki.org/template:monobook" rel="nofollow" title="Шаблон monobook для DokuWiki" target="_blank"><img src="index_files/button-monobook.png" title="Шаблон monobook для DokuWiki" alt="Шаблон monobook для DokuWiki" height="15" border="0" width="80"></a>
+      <a href="https://www.dokuwiki.org/" rel="nofollow" title="DokuWiki" target="_blank"><img src="index_files/button-dw.png" title="DokuWiki" alt="DokuWiki" height="15" border="0" width="80"></a>
+      <a href="http://validator.w3.org/check/referer" rel="nofollow" title="Valid XHTML" target="_blank"><img src="index_files/button-xhtml.png" title="Valid XHTML" alt="Valid XHTML" height="15" border="0" width="80"></a>
+    </div>
+    <ul id="f-list">
+<li id="lastmod">
+        <bdi>projects/torrents_editor.txt</bdi> · Последние изменения: 2014/07/07 17:21  — <bdi>aduser</bdi><br>
+      </li>
+<li id="copyright">
+<div class="dokuwiki">
+<div class="license">За исключением случаев, когда указано иное, содержимое этой вики предоставляется на условиях следующей лицензии: <bdi><a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license" class="urlextern">CC Attribution-Noncommercial 3.0 Unported</a></bdi></div></div>
+      </li>
+<li id="usermod">
+        <br>
+      </li>
+    </ul>
+  </div>
+</div>
+<a href="http://www.linuxdv.org/wiki/index?do=recent" accesskey="r" style="visibility:hidden;" rel="nofollow"> </a>
+<img src="urn:download-error:file:///home/mykaralw/Downloads/html/torreadwrite-wiki_www.linuxdv.org_files/indexer.php" alt="" height="1" width="2">
+
+</body></html>
