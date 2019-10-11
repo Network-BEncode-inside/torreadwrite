@@ -7,12 +7,11 @@ VL-LUG
 
 BUILD
 
-$ bash build.sh
+$ make
 
 INSTALL
 
-$ sudo cp torread /usr/bin
-$ sudo cp torwrite /usr/bin
+$ sudo cp torread torwrite /usr/bin
 $ sudo cp torreadwrite.1.gz /usr/share/man/man1
 $ sudo ln -s /usr/share/man/man1/torreadwrite.1.gz /usr/share/man/man1/torread.1.gz
 $ sudo ln -s /usr/share/man/man1/torreadwrite.1.gz /usr/share/man/man1/torwrite.1.gz
