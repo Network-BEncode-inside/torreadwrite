@@ -27,10 +27,9 @@ $ sudo ln -s /usr/share/man/man1/torreadwrite.1.gz /usr/share/man/man1/torwrite.
 ### SAMPLE
 
 ```shell
-$ torread samplefile.torrent > samplefile.torrent.txt
+$ torread samplefile.torrent samplefile.torrent.txt
 $ nano samplefile.torrent.txt
-
-$ torwrite samplefile.torrent.txt > samplefile.mod.torrent
+$ torwrite samplefile.torrent.txt samplefile.mod.torrent
 ```
 
 ### STRUCTURE

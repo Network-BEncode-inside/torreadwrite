@@ -1,11 +1,9 @@
 /* $Id: torwrite.c 529 2009-09-11 08:44:53Z michael $ */
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/mman.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
+#include <unistd.h>
 
 const uint8_t sp=' ';
 const uint8_t ret='\n';
@@ -52,7 +50,7 @@ size_t StrLen(const uint8_t* d, size_t shift, size_t len)
     return l;
 }
 
-void PrintDec(size_t n)
+void PrintDec(size_t n, FILE* fdo)
 {
     size_t num = n, rem;
     size_t len = 0;
@@ -74,7 +72,7 @@ void PrintDec(size_t n)
         num /= 10;
         *pout --= rem + '0';
     }
-    fwrite(out, len, 1, stdout);
+    fwrite(out, len, 1, fdo);
     free(out);
 }
 
@@ -93,70 +91,94 @@ uint8_t Hex2Sym(const uint8_t *d, size_t sh)
 
 int main(int argc, char** argv)
 {
-    if(argc != 2)
+    if(argc < 3)
     {
-        fprintf(stderr, "Usage: %s file.torrent.txt > file.torrent", argv[0]);
+        fprintf(stderr, "Usage: %s file.txt file.torrent\n", argv[0]);
         return 1;
     }
 
-    int fd;
-    struct stat st;
+    FILE *fd, *fdo;
     uint8_t *pdata;
     uint8_t ch, c;
-    size_t shift = 0, len;
+    size_t flen = 0, shift = 0, len;
 
-    fd=open(argv[1], O_RDONLY);
-    if(fd == -1)
+    fd = fopen(argv[1],"rb");
+    if(fd == NULL)
     {
         fprintf(stderr, "ERROR: Can't open %s", argv[1]);
         return 1;
     }
-    if(fstat(fd, &st) != 0)
+    fdo = fopen(argv[2],"wb");
+    if(fdo == NULL)
     {
-        fprintf(stderr, "ERROR: Can't read %s", argv[1]);
+        fprintf(stderr, "ERROR: Can't write %s", argv[2]);
         return 1;
     }
-    if(st.st_size == 0)
+
+    fseek(fd,0l,SEEK_END);
+    flen = ftell(fd);
+    if(flen == 0)
     {
         fprintf(stderr, "ERROR: File %s empty", argv[1]);
         return 1;
     }
-    pdata=(uint8_t*) mmap(0, st.st_size, PROT_READ, MAP_SHARED, fd, 0);
+    if (flen > 16777216)
+    {
+        printf("Torrent metadata file %s is %ld bytes long.\n",argv[1],flen);
+        printf("That is unusually large for a torrent file. You may have specified an\n");
+        printf("incorrect file. The metadata must be loaded into memory, so this may\n");
+        printf("take some time or fail due to lack of memory.\n");
+        printf("\n");
+    }
+    rewind(fd);
 
-    while(shift < st.st_size)
+    pdata = malloc(flen);
+    if (pdata == NULL)
+    {
+        printf("Unable to malloc %ld bytes for torrent file\n",flen);
+        return 2;
+    }
+    flen = fread(pdata,1,flen,fd);
+    if(flen == 0)
+    {
+        fprintf(stderr, "ERROR: File %s empty", argv[1]);
+        return 1;
+    }
+
+    while(shift < flen)
     {
         c = pdata[shift];
         if(c == bdct)
         {
             ch = 'd';
-            fwrite(&ch, 1, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
         }
         if(c == blst)
         {
             ch = 'l';
-            fwrite(&ch, 1, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
         }
         if(c == edct || pdata[shift] == elst)
         {
             ch = 'e';
-            fwrite(&ch, 1, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
         }
         if((c >= 48 && c <= 57) || c == '+' || c == '-')
         {
-            len = IntLen(pdata, shift, st.st_size);
+            len = IntLen(pdata, shift, flen);
             ch = 'i';
-            fwrite(&ch, 1, 1, stdout);
-            fwrite(pdata + shift, len, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
+            fwrite(pdata + shift, len, 1, fdo);
             ch = 'e';
-            fwrite(&ch, 1, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
             shift += len - 1;
         }
         if(c == quo)
         {
-            len = StrLen(pdata, shift, st.st_size);
-            PrintDec(len);
+            len = StrLen(pdata, shift, flen);
+            PrintDec(len, fdo);
             ch = ':';
-            fwrite(&ch, 1, 1, stdout);
+            fwrite(&ch, 1, 1, fdo);
             shift++;
             while(1)
             {
@@ -222,14 +244,16 @@ int main(int argc, char** argv)
                     }
                 }
                 else ch = c;
-                fwrite(&ch, 1, 1, stdout);
+                fwrite(&ch, 1, 1, fdo);
                 shift++;
             }
         }
         shift++;
     }
 
-    munmap(pdata, st.st_size);
-    close(fd);
+    free(pdata);
+    fclose(fd);
+    fclose(fdo);
+
     return 0;
 }

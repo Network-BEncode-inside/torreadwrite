@@ -1,8 +1,9 @@
 .TH torreadwrite 7 "0.20230107" "07 Jan 2023" "Development Manual"
 
 .SH NAME
-
 torreadwrite
+
+.SH ABOUT
 .PP
 VL-LUG
 .PP
@@ -14,10 +15,9 @@ SRC:  http://linuxdv.ru/forum/download/file.php?id=28
 .PP
 
 .SH SAMPLE
-
 $
 .B torread
-samplefile.torrent > samplefile.torrent.txt
+samplefile.torrent samplefile.torrent.txt
 .PP
 $
 .B nano
@@ -25,11 +25,10 @@ samplefile.torrent.txt
 .PP
 $
 .B torwrite
-samplefile.torrent.txt > samplefile.mod.torrent
+samplefile.torrent.txt samplefile.mod.torrent
 .PP
 
 .SH STRUCTURE
-
 Content torrent file
 .PP
 Content torrent file is encoded as described above. Himself torrent file is bencoded dictionary with the following keys:
