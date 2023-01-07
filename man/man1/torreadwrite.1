@@ -1,0 +1,37 @@
+.TH torreadwrite "1" "0.20230107" "07 Jan 2023" "User Manual"
+
+.SH NAME
+torread, torwrite
+
+.SH DESCRIPTION
+Utilities \fItorread\fR for decoding and \fItorwrite\fR for encoding \fI.torrent\fR files in \fIbencode\fR.
+
+.SH SYNOPSIS
+.PP
+.B torread
+file.torrent > file.txt
+.PP
+.B torwrite
+file.txt > file.torrent
+
+.SH OPTIONS
+None.
+
+.SH EXAMPLE
+.B torread
+samplefile.torrent > samplefile.torrent.txt
+.PP
+.B nano
+samplefile.torrent.txt
+.PP
+.B torwrite
+samplefile.torrent.txt > samplefile.mod.torrent
+ 
+.SH COPYRIGHT
+This is free and unencumbered software released into the public domain.
+
+.SH SEE ALSO
+ctorrent(1), aria2c(1), torrentcheck(7), torreadwrite(7)
+
+.SH CONTACTS
+Website: https://github.com/Network-BEncode-inside/torreadwrite

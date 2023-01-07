@@ -2,21 +2,23 @@ PACKAGE = torreadwrite
 TARGETS = torread torwrite
 
 CC = gcc
-LD = $(CC)
-CFLAGS = 
+CFLAGS = -Wall
 LDFLAGS = -s
 SRCS = src
-RM = rm -fv
+RM = rm -f
 
 .PHONY: all clean
 
 all: $(TARGETS)
 
-torread: $(SRCS)/torread.c
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+torread: $(SRCS)/torread.o
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
-torwrite: $(SRCS)/torwrite.c
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+torwrite: $(SRCS)/torwrite.o
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+%.o : %c
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	$(RM) $(TARGETS)
+	$(RM) $(SRCS)/*.o $(TARGETS)
